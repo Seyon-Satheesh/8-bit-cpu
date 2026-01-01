@@ -32,15 +32,15 @@ module tt_um_8_bit_cpu_seyon_satheesh (
 
   ////////////////  KEY INTERNAL VALUES  ////////////////
 
-  wire ram[127:0];
+  wire [127:0] ram;
 
-  wire register_a[7:0];
-  wire register_b[7:0];
-  wire register_c[7:0];
+  wire [7:0] register_a;
+  wire [7:0] register_b;
+  wire [7:0] register_c;
 
-  wire instruction_address[3:0];
+  wire [3:0] instruction_address;
 
-  wire current_instruction[7:0] = ram[instruction_address + 8];
+  wire [7:0] current_instruction = ram[(instruction_address * 8) +: 8];
 
   // wire current_instruction[7:0] = [(instruction_address << 3) - 8:(instruction_address << 3)];
   // wire instruction_address_start = instruction_address << 3;
@@ -432,7 +432,7 @@ module subtracter_8_bit (
     output wire [7:0] c
 );
 
-  wire inverted_b[7:0];
+  wire [7:0] inverted_b;
 
   assign inverted_b[0] = !b[0];
   assign inverted_b[1] = !b[1];
@@ -462,14 +462,14 @@ module multiplier_8_bit (
   // wire product_7[7:0] = {{a[1] & b[6]}, {a[0] & b[6]}, 1b'0, 1b'0, 1b'0, 1b'0, 1b'0, 1b'0};
   // wire product_8[7:0] = {{a[0] & b[7]}, 1b'0, 1b'0, 1b'0, 1b'0, 1b'0, 1b'0, 1b'0};
 
-  wire product_1[7:0];
-  wire product_2[7:0];
-  wire product_3[7:0];
-  wire product_4[7:0];
-  wire product_5[7:0];
-  wire product_6[7:0];
-  wire product_7[7:0];
-  wire product_8[7:0];
+  wire [7:0] product_1;
+  wire [7:0] product_2;
+  wire [7:0] product_3;
+  wire [7:0] product_4;
+  wire [7:0] product_5;
+  wire [7:0] product_6;
+  wire [7:0] product_7;
+  wire [7:0] product_8;
 
   assign product_1[7] = {a[7] & b[0]};
   assign product_1[6] = {a[6] & b[0]};
