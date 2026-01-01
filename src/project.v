@@ -358,13 +358,13 @@ module adder_8_bit (
   wire carry_7;
 
   full_adder_1_bit fa1b_1(a[0], b[0], 0, c[0], carry_1);
-  full_adder_1_bit fa1b_1(a[1], b[1], carry_1, c[1], carry_2);
-  full_adder_1_bit fa1b_1(a[2], b[2], carry_2, c[2], carry_3);
-  full_adder_1_bit fa1b_1(a[3], b[3], carry_3, c[3], carry_4);
-  full_adder_1_bit fa1b_1(a[4], b[4], carry_4, c[4], carry_5);
-  full_adder_1_bit fa1b_1(a[5], b[5], carry_5, c[5], carry_6);
-  full_adder_1_bit fa1b_1(a[6], b[6], carry_6, c[6], carry_7);
-  full_adder_1_bit fa1b_1(a[7], b[7], carry_7, c[7], 0);
+  full_adder_1_bit fa1b_2(a[1], b[1], carry_1, c[1], carry_2);
+  full_adder_1_bit fa1b_3(a[2], b[2], carry_2, c[2], carry_3);
+  full_adder_1_bit fa1b_4(a[3], b[3], carry_3, c[3], carry_4);
+  full_adder_1_bit fa1b_5(a[4], b[4], carry_4, c[4], carry_5);
+  full_adder_1_bit fa1b_6(a[5], b[5], carry_5, c[5], carry_6);
+  full_adder_1_bit fa1b_7(a[6], b[6], carry_6, c[6], carry_7);
+  full_adder_1_bit fa1b_8(a[7], b[7], carry_7, c[7], 0);
 
 endmodule
 
@@ -426,14 +426,95 @@ module multiplier_8_bit (
     output wire [7:0] c
 );
 
-  wire product_1[7:0] = {(a[7] & b[0]), (a[6] & b[0]), (a[5] & b[0]), (a[4] & b[0]), (a[3] & b[0]), (a[2] & b[0]), (a[1] & b[0]), (a[0] & b[0])};
-  wire product_2[7:0] = {(a[6] & b[1]), (a[5] & b[1]), (a[4] & b[1]), (a[3] & b[1]), (a[2] & b[1]), (a[1] & b[1]), (a[0] & b[1]), 1b'0};
-  wire product_3[7:0] = {(a[5] & b[2]), (a[4] & b[2]), (a[3] & b[2]), (a[2] & b[2]), (a[1] & b[2]), (a[0] & b[2]), 1b'0, 1b'0};
-  wire product_4[7:0] = {(a[4] & b[3]), (a[3] & b[3]), (a[2] & b[3]), (a[1] & b[3]), (a[0] & b[3]), 1b'0, 1b'0, 1b'0};
-  wire product_5[7:0] = {(a[3] & b[4]), (a[2] & b[4]), (a[1] & b[4]), (a[0] & b[4]), 1b'0, 1b'0, 1b'0, 1b'0};
-  wire product_6[7:0] = {(a[2] & b[5]), (a[1] & b[5]), (a[0] & b[5]), 1b'0, 1b'0, 1b'0, 1b'0, 1b'0};
-  wire product_7[7:0] = {(a[1] & b[6]), (a[0] & b[6]), 1b'0, 1b'0, 1b'0, 1b'0, 1b'0, 1b'0};
-  wire product_8[7:0] = {(a[0] & b[7]), 1b'0, 1b'0, 1b'0, 1b'0, 1b'0, 1b'0, 1b'0};
+  // wire product_1[7:0] = {{a[7] & b[0]}, {a[6] & b[0]}, (a[5] & b[0]), (a[4] & b[0]), (a[3] & b[0]), (a[2] & b[0]), (a[1] & b[0]), (a[0] & b[0])};
+  // wire product_2[7:0] = {{a[6] & b[1]}, {a[5] & b[1]}, (a[4] & b[1]), (a[3] & b[1]), (a[2] & b[1]), (a[1] & b[1]), (a[0] & b[1]), 1b'0};
+  // wire product_3[7:0] = {{a[5] & b[2]}, {a[4] & b[2]}, (a[3] & b[2]), (a[2] & b[2]), (a[1] & b[2]), (a[0] & b[2]), 1b'0, 1b'0};
+  // wire product_4[7:0] = {{a[4] & b[3]}, {a[3] & b[3]}, (a[2] & b[3]), (a[1] & b[3]), (a[0] & b[3]), 1b'0, 1b'0, 1b'0};
+  // wire product_5[7:0] = {{a[3] & b[4]}, {a[2] & b[4]}, (a[1] & b[4]), (a[0] & b[4]), 1b'0, 1b'0, 1b'0, 1b'0};
+  // wire product_6[7:0] = {{a[2] & b[5]}, {a[1] & b[5]}, (a[0] & b[5]), 1b'0, 1b'0, 1b'0, 1b'0, 1b'0};
+  // wire product_7[7:0] = {{a[1] & b[6]}, {a[0] & b[6]}, 1b'0, 1b'0, 1b'0, 1b'0, 1b'0, 1b'0};
+  // wire product_8[7:0] = {{a[0] & b[7]}, 1b'0, 1b'0, 1b'0, 1b'0, 1b'0, 1b'0, 1b'0};
+
+  wire product_1[7:0];
+  wire product_2[7:0];
+  wire product_3[7:0];
+  wire product_4[7:0];
+  wire product_5[7:0];
+  wire product_6[7:0];
+  wire product_7[7:0];
+  wire product_8[7:0];
+
+  assign product_1[7] = {a[7] & b[0]};
+  assign product_1[6] = {a[6] & b[0]};
+  assign product_1[5] = {a[5] & b[0]};
+  assign product_1[4] = {a[4] & b[0]};
+  assign product_1[3] = {a[3] & b[0]};
+  assign product_1[2] = {a[2] & b[0]};
+  assign product_1[1] = {a[1] & b[0]};
+  assign product_1[0] = {a[0] & b[0]};
+
+  assign product_2[7] = {a[6] & b[1]};
+  assign product_2[6] = {a[5] & b[1]};
+  assign product_2[5] = {a[4] & b[1]};
+  assign product_2[4] = {a[3] & b[1]};
+  assign product_2[3] = {a[2] & b[1]};
+  assign product_2[2] = {a[1] & b[1]};
+  assign product_2[1] = {a[0] & b[1]};
+  assign product_2[0] = 0;
+
+  assign product_3[7] = {a[5] & b[2]};
+  assign product_3[6] = {a[4] & b[2]};
+  assign product_3[5] = {a[3] & b[2]};
+  assign product_3[4] = {a[2] & b[2]};
+  assign product_3[3] = {a[1] & b[2]};
+  assign product_3[2] = {a[0] & b[2]};
+  assign product_3[1] = 0;
+  assign product_3[0] = 0;
+
+  assign product_4[7] = {a[4] & b[3]};
+  assign product_4[6] = {a[3] & b[3]};
+  assign product_4[5] = {a[2] & b[3]};
+  assign product_4[4] = {a[1] & b[3]};
+  assign product_4[3] = {a[0] & b[3]};
+  assign product_4[2] = 0;
+  assign product_4[1] = 0;
+  assign product_4[0] = 0;
+
+  assign product_5[7] = {a[3] & b[4]};
+  assign product_5[6] = {a[2] & b[4]};
+  assign product_5[5] = {a[1] & b[4]};
+  assign product_5[4] = {a[0] & b[4]};
+  assign product_5[3] = 0;
+  assign product_5[2] = 0;
+  assign product_5[1] = 0;
+  assign product_5[0] = 0;
+
+  assign product_6[7] = {a[2] & b[5]};
+  assign product_6[6] = {a[1] & b[5]};
+  assign product_6[5] = {a[0] & b[5]};
+  assign product_6[4] = 0;
+  assign product_6[3] = 0;
+  assign product_6[2] = 0;
+  assign product_6[1] = 0;
+  assign product_6[0] = 0;
+
+  assign product_7[7] = {a[1] & b[6]};
+  assign product_7[6] = {a[0] & b[6]};
+  assign product_7[5] = 0;
+  assign product_7[4] = 0;
+  assign product_7[3] = 0;
+  assign product_7[2] = 0;
+  assign product_7[1] = 0;
+  assign product_7[0] = 0;
+
+  assign product_8[7] = {a[0] & b[7]};
+  assign product_8[6] = 0;
+  assign product_8[5] = 0;
+  assign product_8[4] = 0;
+  assign product_8[3] = 0;
+  assign product_8[2] = 0;
+  assign product_8[1] = 0;
+  assign product_8[0] = 0;
 
   wire sum_1;
   wire sum_2;
