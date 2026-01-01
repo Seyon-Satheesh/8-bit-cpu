@@ -5,7 +5,7 @@
 
 `default_nettype none
 
-module tt_8_bit_cpu_seyon_satheesh (
+module tt_um_8_bit_cpu_seyon_satheesh (
     input  wire [7:0] ui_in,    // Dedicated inputs
     output wire [7:0] uo_out,   // Dedicated outputs
     input  wire [7:0] uio_in,   // IOs: Input path
