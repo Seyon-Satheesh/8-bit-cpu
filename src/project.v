@@ -44,8 +44,18 @@ module tt_um_8_bit_cpu_seyon_satheesh (
   // wire instruction_address_start = instruction_address << 3;
   // wire current_instruction[7:0] = [(instruction_address << 3) +: 8];
   // wire current_instruction[7:0] = ram[(instruction_address << 3) - 8 +: 8];
-  wire instruction_address_start[7:0] = instruction_address << 3 - 8;
-  wire current_instruction[7:0] = ram[instruction_address_start +: 8];
+  // wire instruction_address_start[7:0] = (instruction_address << 3) - 8;
+  // wire current_instruction[7:0] = ram[instruction_address_start +: 8];
+  wire instruction_address_start[6:0] = instruction_address << 3;
+  wire current_instruction[7:0];
+  assign current_instruction[0] = ram[instruction_address_start];
+  assign current_instruction[1] = ram[instruction_address_start + 1];
+  assign current_instruction[2] = ram[instruction_address_start + 2];
+  assign current_instruction[3] = ram[instruction_address_start + 3];
+  assign current_instruction[4] = ram[instruction_address_start + 4];
+  assign current_instruction[5] = ram[instruction_address_start + 5];
+  assign current_instruction[6] = ram[instruction_address_start + 6];
+  assign current_instruction[7] = ram[instruction_address_start + 7];
 
   wire NOP = (!current_instruction[7]) & (!current_instruction[6]) & (!current_instruction[5]) & (!current_instruction[4]);
   wire LDA1 = (!current_instruction[7]) & (!current_instruction[6]) & (!current_instruction[5]) & current_instruction[4];
