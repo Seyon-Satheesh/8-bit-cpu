@@ -1,0 +1,26 @@
+RAM: 4-bit addresses (1 byte each)
+
+Registers: ABC (1 byte each)
+
+Instruction set (Instruction (4-bit) + Value (4-bit))
+ - 0000XXXX is NOP
+ - 0001XXXX is LDA1 (Load XXXX into First-Half of A)
+ - 0010XXXX is LDA2 (Load XXXX into Second-Half of A)
+ - 0011XXXX is LDB1 (Load XXXX into First-Half of A)
+ - 0100XXXX is LDB2 (Load XXXX into Second-Half of A)
+ - 0101XXXX is LDC1 (Load XXXX into First-Half of A)
+ - 0110XXXX is LDC2 (Load XXXX into Second-Half of A)
+ - 0111XXXX is ADD (Add Reg A & B into Reg C)
+ - 1000XXXX is SUB (Subtract Reg B from A into Reg C)
+ - 1001XXXX is MUL (Multiply Reg A & B into Reg C)
+ - 1010XXXX is OUT (Output Register | XXXX (0000) is Reg A, XXXX (0001) is Reg B, XXXX (0010) is Reg C)
+ - 1011XXXX is IN (Input into Register | XXXX (0000) is Reg A, XXXX (0001) is Reg B, XXXX (0010) is Reg C)
+
+
+IO: Always Input (A-B-XX-YYYY)
+ - A is Run (1) or Don't Run (0)
+ - B is Reset (1) or Don't Reset (0)
+ - XX is Instruction
+    - 00 is NOP
+    - 01 is write value of dedicated input to RAM at address YYYY
+ - YYYY is Data
