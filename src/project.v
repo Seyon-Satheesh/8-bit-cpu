@@ -144,9 +144,9 @@ module tt_um_8_bit_cpu_seyon_satheesh (
 
   ////////////////  ALU  ////////////////
 
-  wire sum;
-  wire difference;
-  wire product;
+  wire [7:0] sum;
+  wire [7:0] difference;
+  wire [7:0] product;
 
   wire should_sum = ADD & on;
   wire should_minus = SUB & on;
@@ -359,14 +359,16 @@ module adder_8_bit_with_carry (
   wire carry_6;
   wire carry_7;
 
-  full_adder_1_bit fa1b_1(a[0], b[0], 1, c[0], carry_1);
+  wire ignore;
+
+  full_adder_1_bit fa1b_1(a[0], b[0], 1'b1, c[0], carry_1);
   full_adder_1_bit fa1b_2(a[1], b[1], carry_1, c[1], carry_2);
   full_adder_1_bit fa1b_3(a[2], b[2], carry_2, c[2], carry_3);
   full_adder_1_bit fa1b_4(a[3], b[3], carry_3, c[3], carry_4);
   full_adder_1_bit fa1b_5(a[4], b[4], carry_4, c[4], carry_5);
   full_adder_1_bit fa1b_6(a[5], b[5], carry_5, c[5], carry_6);
   full_adder_1_bit fa1b_7(a[6], b[6], carry_6, c[6], carry_7);
-  full_adder_1_bit fa1b_8(a[7], b[7], carry_7, c[7], 0);
+  full_adder_1_bit fa1b_8(a[7], b[7], carry_7, c[7], ignore;);
 
 endmodule
 
@@ -384,14 +386,16 @@ module adder_8_bit (
   wire carry_6;
   wire carry_7;
 
-  full_adder_1_bit fa1b_1(a[0], b[0], 0, c[0], carry_1);
+  wire ignore;
+
+  full_adder_1_bit fa1b_1(a[0], b[0], 1'b0, c[0], carry_1);
   full_adder_1_bit fa1b_2(a[1], b[1], carry_1, c[1], carry_2);
   full_adder_1_bit fa1b_3(a[2], b[2], carry_2, c[2], carry_3);
   full_adder_1_bit fa1b_4(a[3], b[3], carry_3, c[3], carry_4);
   full_adder_1_bit fa1b_5(a[4], b[4], carry_4, c[4], carry_5);
   full_adder_1_bit fa1b_6(a[5], b[5], carry_5, c[5], carry_6);
   full_adder_1_bit fa1b_7(a[6], b[6], carry_6, c[6], carry_7);
-  full_adder_1_bit fa1b_8(a[7], b[7], carry_7, c[7], 0);
+  full_adder_1_bit fa1b_8(a[7], b[7], carry_7, c[7], ignore);
 
 endmodule
 
