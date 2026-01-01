@@ -98,11 +98,11 @@ module tt_um_8_bit_cpu_seyon_satheesh (
 
   // d_latch_8_bit dl8b_1(v, e, r);
 
-  // d_latch_8_bit reset_a(8'b00000000, reset, register_a[7:0]);
-  // d_latch_8_bit reset_b(8'b00000000, reset, register_b[7:0]);
-  // d_latch_8_bit reset_c(8'b00000000, reset, register_c[7:0]);
-  // d_latch_128_bit reset_ram(128'b00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000, reset, ram[127:0]);
-  // d_latch_4_bit reset_instruction_address(4'b0000, reset, instruction_address[3:0]);
+  d_latch_8_bit reset_a(8'b00000000, reset, register_a[7:0]);
+  d_latch_8_bit reset_b(8'b00000000, reset, register_b[7:0]);
+  d_latch_8_bit reset_c(8'b00000000, reset, register_c[7:0]);
+  d_latch_128_bit reset_ram(128'b00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000, reset, ram[127:0]);
+  d_latch_4_bit reset_instruction_address(4'b0000, reset, instruction_address[3:0]);
 
   ////////////////  EXTERNAL RAM LOADING  ////////////////
 
@@ -342,6 +342,7 @@ module j_k_master_slave_flip_flop (
   nor nor_bottom_2(bottom_5, bottom_4, top_5);
 
   assign result = top_5;
+  assign inverse_result = bottom_5;
 
 endmodule
 
