@@ -368,7 +368,7 @@ module adder_8_bit_with_carry (
   full_adder_1_bit fa1b_5(a[4], b[4], carry_4, c[4], carry_5);
   full_adder_1_bit fa1b_6(a[5], b[5], carry_5, c[5], carry_6);
   full_adder_1_bit fa1b_7(a[6], b[6], carry_6, c[6], carry_7);
-  full_adder_1_bit fa1b_8(a[7], b[7], carry_7, c[7], ignore;);
+  full_adder_1_bit fa1b_8(a[7], b[7], carry_7, c[7], ignore);
 
 endmodule
 
