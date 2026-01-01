@@ -158,8 +158,8 @@ module tt_um_8_bit_cpu_seyon_satheesh (
   multiplier_8_bit multiplier(register_a, register_b, product);
 
   d_latch_8_bit load_sum(sum, should_sum, register_c);
-  d_latch_8_bit load_difference(minus, should_minus, register_c);
-  d_latch_8_bit load_product(multiply, should_multiply, register_c);
+  d_latch_8_bit load_difference(difference, should_minus, register_c);
+  d_latch_8_bit load_product(product, should_multiply, register_c);
 
   ////////////////  REGISTER VALUE LOADER  ////////////////
 
@@ -309,7 +309,7 @@ module binary_counter_4_bit (
     output wire [3:0] counter
 );
 
-  j_k_master_slave_flip_flop jkmsff_1(1'b1, 1'b1, clk, counter[0]);
+  j_k_master_slave_flip_flop jkmsff_1(1'b1, 1'b1, clock, counter[0]);
   j_k_master_slave_flip_flop jkmsff_2(1'b1, 1'b1, counter[0], counter[1]);
   j_k_master_slave_flip_flop jkmsff_3(1'b1, 1'b1, counter[1], counter[2]);
   j_k_master_slave_flip_flop jkmsff_4(1'b1, 1'b1, counter[2], counter[3]);
