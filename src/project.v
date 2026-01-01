@@ -325,7 +325,7 @@ module j_k_master_slave_flip_flop (
   wire inverse_result;
 
   wire top_1, top_2, top_3, top_4, top_5;
-  wire bottom_1, bottom_2, bottom_3;
+  wire bottom_1, bottom_2, bottom_3, bottom_4, bottom_5;
 
   and and_top_1(top_1, j, inverse_result);
   and and_top_2(top_2, top_1, clock);
