@@ -40,7 +40,7 @@ module tt_um_8_bit_cpu_seyon_satheesh (
 
   wire instruction_address[3:0];
 
-  wire current_instruction[7:0] = ram[instruction_address +: 8];
+  wire current_instruction[7:0] = ram[instruction_address + 8];
 
   // wire current_instruction[7:0] = [(instruction_address << 3) - 8:(instruction_address << 3)];
   // wire instruction_address_start = instruction_address << 3;
