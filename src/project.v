@@ -94,22 +94,22 @@ module tt_8_bit_cpu_seyon_satheesh (
   wire load_ram_address_15 = write_external_data_to_ram & uio_out[3] & uio_out[2] & uio_out[1] & !(uio_out[0]);
   wire load_ram_address_16 = write_external_data_to_ram & uio_out[3] & uio_out[2] & uio_out[1] & uio_out[0];
 
-  d_latch_8_bit external_ram_loader(ui_in[7:0], load_ram_address_1, ram[7:0]);
-  d_latch_8_bit external_ram_loader(ui_in[7:0], load_ram_address_2, ram[15:8]);
-  d_latch_8_bit external_ram_loader(ui_in[7:0], load_ram_address_3, ram[23:16]);
-  d_latch_8_bit external_ram_loader(ui_in[7:0], load_ram_address_4, ram[31:24]);
-  d_latch_8_bit external_ram_loader(ui_in[7:0], load_ram_address_5, ram[39:32]);
-  d_latch_8_bit external_ram_loader(ui_in[7:0], load_ram_address_6, ram[47:40]);
-  d_latch_8_bit external_ram_loader(ui_in[7:0], load_ram_address_7, ram[55:48]);
-  d_latch_8_bit external_ram_loader(ui_in[7:0], load_ram_address_8, ram[63:56]);
-  d_latch_8_bit external_ram_loader(ui_in[7:0], load_ram_address_9, ram[71:64]);
-  d_latch_8_bit external_ram_loader(ui_in[7:0], load_ram_address_10, ram[79:72]);
-  d_latch_8_bit external_ram_loader(ui_in[7:0], load_ram_address_11, ram[87:80]);
-  d_latch_8_bit external_ram_loader(ui_in[7:0], load_ram_address_12, ram[95:88]);
-  d_latch_8_bit external_ram_loader(ui_in[7:0], load_ram_address_13, ram[103:96]);
-  d_latch_8_bit external_ram_loader(ui_in[7:0], load_ram_address_14, ram[111:104]);
-  d_latch_8_bit external_ram_loader(ui_in[7:0], load_ram_address_15, ram[119:112]);
-  d_latch_8_bit external_ram_loader(ui_in[7:0], load_ram_address_16, ram[127:120]);
+  d_latch_8_bit external_ram_loader_1(ui_in[7:0], load_ram_address_1, ram[7:0]);
+  d_latch_8_bit external_ram_loader_2(ui_in[7:0], load_ram_address_2, ram[15:8]);
+  d_latch_8_bit external_ram_loader_3(ui_in[7:0], load_ram_address_3, ram[23:16]);
+  d_latch_8_bit external_ram_loader_4(ui_in[7:0], load_ram_address_4, ram[31:24]);
+  d_latch_8_bit external_ram_loader_5(ui_in[7:0], load_ram_address_5, ram[39:32]);
+  d_latch_8_bit external_ram_loader_6(ui_in[7:0], load_ram_address_6, ram[47:40]);
+  d_latch_8_bit external_ram_loader_7(ui_in[7:0], load_ram_address_7, ram[55:48]);
+  d_latch_8_bit external_ram_loader_8(ui_in[7:0], load_ram_address_8, ram[63:56]);
+  d_latch_8_bit external_ram_loader_9(ui_in[7:0], load_ram_address_9, ram[71:64]);
+  d_latch_8_bit external_ram_loader_10(ui_in[7:0], load_ram_address_10, ram[79:72]);
+  d_latch_8_bit external_ram_loader_11(ui_in[7:0], load_ram_address_11, ram[87:80]);
+  d_latch_8_bit external_ram_loader_12(ui_in[7:0], load_ram_address_12, ram[95:88]);
+  d_latch_8_bit external_ram_loader_13(ui_in[7:0], load_ram_address_13, ram[103:96]);
+  d_latch_8_bit external_ram_loader_14(ui_in[7:0], load_ram_address_14, ram[111:104]);
+  d_latch_8_bit external_ram_loader_15(ui_in[7:0], load_ram_address_15, ram[119:112]);
+  d_latch_8_bit external_ram_loader_16(ui_in[7:0], load_ram_address_16, ram[127:120]);
 
   ////////////////  PROGRAM COUNTER  ////////////////
 
@@ -176,7 +176,7 @@ endmodule
 module d_latch_128_bit (
     input wire [127:0] value,
     input wire enable,
-    output wire [127:0] result,
+    output wire [127:0] result
 );
 
   d_latch_64_bit dl64b_1(value[127:64], enable, result[127:64]);
@@ -187,7 +187,7 @@ endmodule
 module d_latch_64_bit (
     input wire [63:0] value,
     input wire enable,
-    output wire [63:0] result,
+    output wire [63:0] result
 );
 
   d_latch_32_bit dl32b_1(value[63:32], enable, result[63:32]);
@@ -198,7 +198,7 @@ endmodule
 module d_latch_32_bit (
     input wire [31:0] value,
     input wire enable,
-    output wire [31:0] result,
+    output wire [31:0] result
 );
 
   d_latch_16_bit dl16b_1(value[31:16], enable, result[31:16]);
@@ -209,7 +209,7 @@ endmodule
 module d_latch_16_bit (
     input wire [15:0] value,
     input wire enable,
-    output wire [15:0] result,
+    output wire [15:0] result
 );
 
   d_latch_8_bit dl8b_1(value[15:8], enable, result[15:8]);
@@ -220,7 +220,7 @@ endmodule
 module d_latch_8_bit (
     input wire [7:0] value,
     input wire enable,
-    output wire [7:0] result,
+    output wire [7:0] result
 );
 
   d_latch_4_bit dl4b_1(value[7:4], enable, result[7:4]);
@@ -231,7 +231,7 @@ endmodule
 module d_latch_4_bit (
     input wire [3:0] value,
     input wire enable,
-    output wire [3:0] result,
+    output wire [3:0] result
 );
 
   d_latch_1_bit dl1b_1(value[3], enable, result[3]);
@@ -244,7 +244,7 @@ endmodule
 module d_latch_1_bit (
     input wire value,
     input wire enable,
-    output wire result,
+    output wire result
 );
 
   wire not_value = !value;
@@ -278,7 +278,7 @@ endmodule
 
 module binary_counter_4_bit (
     input wire clock,
-    output wire [3:0] counter,
+    output wire [3:0] counter
 );
 
   j_k_master_slave_flip_flop jkmsff_1(1, 1, clk, counter[0]);
@@ -292,7 +292,7 @@ module j_k_master_slave_flip_flop (
     input wire j,
     input wire k,
     input wire clock,
-    output wire result,
+    output wire result
 );
 
   wire inverse_result;
@@ -304,13 +304,13 @@ module j_k_master_slave_flip_flop (
   and and_top_2(top_2, top_1, clock);
   nor nor_top_1(top_3, top_2, bottom_3);
   and and_top_3(top_4, top_3, clock);
-  nor nor_top_1(top_5, top_4, bottom_5);
+  nor nor_top_2(top_5, top_4, bottom_5);
 
   and and_bottom_1(bottom_1, k, result);
   and and_bottom_2(bottom_2, bottom_1, clock);
   nor nor_bottom_1(bottom_3, bottom_2, top_3);
   and and_bottom_3(bottom_4, bottom_3, clock);
-  nor nor_bottom_1(bottom_5, bottom_4, top_5);
+  nor nor_bottom_2(bottom_5, bottom_4, top_5);
 
   assign result = top_5;
 
@@ -321,7 +321,7 @@ endmodule
 module adder_8_bit_with_carry (
     input wire [7:0] a,
     input wire [7:0] b,
-    output wire [7:0] c,
+    output wire [7:0] c
 );
 
   wire carry_1;
@@ -333,20 +333,20 @@ module adder_8_bit_with_carry (
   wire carry_7;
 
   full_adder_1_bit fa1b_1(a[0], b[0], 1, c[0], carry_1);
-  full_adder_1_bit fa1b_1(a[1], b[1], carry_1, c[1], carry_2);
-  full_adder_1_bit fa1b_1(a[2], b[2], carry_2, c[2], carry_3);
-  full_adder_1_bit fa1b_1(a[3], b[3], carry_3, c[3], carry_4);
-  full_adder_1_bit fa1b_1(a[4], b[4], carry_4, c[4], carry_5);
-  full_adder_1_bit fa1b_1(a[5], b[5], carry_5, c[5], carry_6);
-  full_adder_1_bit fa1b_1(a[6], b[6], carry_6, c[6], carry_7);
-  full_adder_1_bit fa1b_1(a[7], b[7], carry_7, c[7], 0);
+  full_adder_1_bit fa1b_2(a[1], b[1], carry_1, c[1], carry_2);
+  full_adder_1_bit fa1b_3(a[2], b[2], carry_2, c[2], carry_3);
+  full_adder_1_bit fa1b_4(a[3], b[3], carry_3, c[3], carry_4);
+  full_adder_1_bit fa1b_5(a[4], b[4], carry_4, c[4], carry_5);
+  full_adder_1_bit fa1b_6(a[5], b[5], carry_5, c[5], carry_6);
+  full_adder_1_bit fa1b_7(a[6], b[6], carry_6, c[6], carry_7);
+  full_adder_1_bit fa1b_8(a[7], b[7], carry_7, c[7], 0);
 
 endmodule
 
 module adder_8_bit (
     input wire [7:0] a,
     input wire [7:0] b,
-    output wire [7:0] c,
+    output wire [7:0] c
 );
 
   wire carry_1;
@@ -373,7 +373,7 @@ module full_adder_1_bit (
     input wire b,
     input wire c_in,
     output wire c,
-    output wire c_out,
+    output wire c_out
 );
 
   wire x;
@@ -391,7 +391,7 @@ module half_adder_1_bit (
     input wire a,
     input wire b,
     output wire c,
-    output wire c_out,
+    output wire c_out
 );
 
   and and_1(c_out, a, b);
@@ -402,7 +402,7 @@ endmodule
 module subtracter_8_bit (
     input wire [7:0] a,
     input wire [7:0] b,
-    output wire [7:0] c,
+    output wire [7:0] c
 );
 
   wire inverted_b[7:0];
@@ -423,17 +423,17 @@ endmodule
 module multiplier_8_bit (
     input wire [7:0] a,
     input wire [7:0] b,
-    output wire [7:0] c,
+    output wire [7:0] c
 );
 
   wire product_1[7:0] = {(a[7] & b[0]), (a[6] & b[0]), (a[5] & b[0]), (a[4] & b[0]), (a[3] & b[0]), (a[2] & b[0]), (a[1] & b[0]), (a[0] & b[0])};
-  wire product_2[7:0] = {(a[6] & b[1]), (a[5] & b[1]), (a[4] & b[1]), (a[3] & b[1]), (a[2] & b[1]), (a[1] & b[1]), (a[0] & b[1]), 0};
-  wire product_3[7:0] = {(a[5] & b[2]), (a[4] & b[2]), (a[3] & b[2]), (a[2] & b[2]), (a[1] & b[2]), (a[0] & b[2]), 0, 0};
-  wire product_4[7:0] = {(a[4] & b[3]), (a[3] & b[3]), (a[2] & b[3]), (a[1] & b[3]), (a[0] & b[3]), 0, 0, 0};
-  wire product_5[7:0] = {(a[3] & b[4]), (a[2] & b[4]), (a[1] & b[4]), (a[0] & b[4]), 0, 0, 0, 0};
-  wire product_6[7:0] = {(a[2] & b[5]), (a[1] & b[5]), (a[0] & b[5]), 0, 0, 0, 0, 0};
-  wire product_7[7:0] = {(a[1] & b[6]), (a[0] & b[6]), 0, 0, 0, 0, 0, 0};
-  wire product_8[7:0] = {(a[0] & b[7]), 0, 0, 0, 0, 0, 0, 0};
+  wire product_2[7:0] = {(a[6] & b[1]), (a[5] & b[1]), (a[4] & b[1]), (a[3] & b[1]), (a[2] & b[1]), (a[1] & b[1]), (a[0] & b[1]), 1b'0};
+  wire product_3[7:0] = {(a[5] & b[2]), (a[4] & b[2]), (a[3] & b[2]), (a[2] & b[2]), (a[1] & b[2]), (a[0] & b[2]), 1b'0, 1b'0};
+  wire product_4[7:0] = {(a[4] & b[3]), (a[3] & b[3]), (a[2] & b[3]), (a[1] & b[3]), (a[0] & b[3]), 1b'0, 1b'0, 1b'0};
+  wire product_5[7:0] = {(a[3] & b[4]), (a[2] & b[4]), (a[1] & b[4]), (a[0] & b[4]), 1b'0, 1b'0, 1b'0, 1b'0};
+  wire product_6[7:0] = {(a[2] & b[5]), (a[1] & b[5]), (a[0] & b[5]), 1b'0, 1b'0, 1b'0, 1b'0, 1b'0};
+  wire product_7[7:0] = {(a[1] & b[6]), (a[0] & b[6]), 1b'0, 1b'0, 1b'0, 1b'0, 1b'0, 1b'0};
+  wire product_8[7:0] = {(a[0] & b[7]), 1b'0, 1b'0, 1b'0, 1b'0, 1b'0, 1b'0, 1b'0};
 
   wire sum_1;
   wire sum_2;
@@ -443,11 +443,11 @@ module multiplier_8_bit (
   wire sum_6;
 
   adder_8_bit a8b_1(product_1, product_2, sum_1);
-  adder_8_bit a8b_1(sum_1, product_3, sum_2);
-  adder_8_bit a8b_1(sum_2, product_4, sum_3);
-  adder_8_bit a8b_1(sum_3, product_5, sum_4);
-  adder_8_bit a8b_1(sum_4, product_6, sum_5);
-  adder_8_bit a8b_1(sum_5, product_7, sum_6);
-  adder_8_bit a8b_1(sum_6, product_8, c);
+  adder_8_bit a8b_2(sum_1, product_3, sum_2);
+  adder_8_bit a8b_3(sum_2, product_4, sum_3);
+  adder_8_bit a8b_4(sum_3, product_5, sum_4);
+  adder_8_bit a8b_5(sum_4, product_6, sum_5);
+  adder_8_bit a8b_6(sum_5, product_7, sum_6);
+  adder_8_bit a8b_7(sum_6, product_8, c);
 
 endmodule
