@@ -40,7 +40,8 @@ module tt_um_8_bit_cpu_seyon_satheesh (
 
   wire [3:0] instruction_address;
 
-  wire [7:0] current_instruction = ram[(instruction_address * 8) +: 8];
+  // wire [7:0] current_instruction = ram[(instruction_address * 8) +: 8];
+  wire [7:0] current_instruction = ram[(instruction_address << 3) +: 8];
 
   // wire current_instruction[7:0] = [(instruction_address << 3) - 8:(instruction_address << 3)];
   // wire instruction_address_start = instruction_address << 3;
@@ -547,12 +548,12 @@ module multiplier_8_bit (
   assign product_8[1] = 0;
   assign product_8[0] = 0;
 
-  wire sum_1;
-  wire sum_2;
-  wire sum_3;
-  wire sum_4;
-  wire sum_5;
-  wire sum_6;
+  wire [7:0] sum_1;
+  wire [7:0] sum_2;
+  wire [7:0] sum_3;
+  wire [7:0] sum_4;
+  wire [7:0] sum_5;
+  wire [7:0] sum_6;
 
   adder_8_bit a8b_1(product_1, product_2, sum_1);
   adder_8_bit a8b_2(sum_1, product_3, sum_2);
