@@ -308,10 +308,10 @@ module binary_counter_4_bit (
     output wire [3:0] counter
 );
 
-  j_k_master_slave_flip_flop jkmsff_1(1, 1, clk, counter[0]);
-  j_k_master_slave_flip_flop jkmsff_2(1, 1, counter[0], counter[1]);
-  j_k_master_slave_flip_flop jkmsff_3(1, 1, counter[1], counter[2]);
-  j_k_master_slave_flip_flop jkmsff_4(1, 1, counter[2], counter[3]);
+  j_k_master_slave_flip_flop jkmsff_1(1'b1, 1'b1, clk, counter[0]);
+  j_k_master_slave_flip_flop jkmsff_2(1'b1, 1'b1, counter[0], counter[1]);
+  j_k_master_slave_flip_flop jkmsff_3(1'b1, 1'b1, counter[1], counter[2]);
+  j_k_master_slave_flip_flop jkmsff_4(1'b1, 1'b1, counter[2], counter[3]);
 
 endmodule
 
