@@ -23,34 +23,34 @@ project:
 # This section is for the datasheet/website. Use descriptive names (e.g., RX, TX, MOSI, SCL, SEG_A, etc.).
 pinout:
   # Inputs
-  ui[0]: ""
-  ui[1]: ""
-  ui[2]: ""
-  ui[3]: ""
-  ui[4]: ""
-  ui[5]: ""
-  ui[6]: ""
-  ui[7]: ""
+  ui[0]: "General Input"
+  ui[1]: "General Input"
+  ui[2]: "General Input"
+  ui[3]: "General Input"
+  ui[4]: "General Input"
+  ui[5]: "General Input"
+  ui[6]: "General Input"
+  ui[7]: "General Input"
 
   # Outputs
-  uo[0]: ""
-  uo[1]: ""
-  uo[2]: ""
-  uo[3]: ""
-  uo[4]: ""
-  uo[5]: ""
-  uo[6]: ""
-  uo[7]: ""
+  uo[0]: "General Output"
+  uo[1]: "General Output"
+  uo[2]: "General Output"
+  uo[3]: "General Output"
+  uo[4]: "General Output"
+  uo[5]: "General Output"
+  uo[6]: "General Output"
+  uo[7]: "General Output"
 
   # Bidirectional pins
-  uio[0]: ""
-  uio[1]: ""
-  uio[2]: ""
-  uio[3]: ""
-  uio[4]: ""
-  uio[5]: ""
-  uio[6]: ""
-  uio[7]: ""
+  uio[0]: "Y"
+  uio[1]: "Y"
+  uio[2]: "Y"
+  uio[3]: "Y"
+  uio[4]: "X"
+  uio[5]: "X"
+  uio[6]: "B"
+  uio[7]: "A"
 
 # Do not change!
 yaml_version: 6
