@@ -55,15 +55,17 @@ module tt_um_8_bit_cpu_seyon_satheesh (
   assign instruction_address_start[4] = instruction_address[1];
   assign instruction_address_start[5] = instruction_address[2];
   assign instruction_address_start[6] = instruction_address[3];
+
+  // wire current_instruction[7:0] = ram[instruction_address_start +: 8];
   wire current_instruction[7:0];
-  assign current_instruction[0] = ram[instruction_address_start];
-  assign current_instruction[1] = ram[instruction_address_start + 1];
-  assign current_instruction[2] = ram[instruction_address_start + 2];
-  assign current_instruction[3] = ram[instruction_address_start + 3];
-  assign current_instruction[4] = ram[instruction_address_start + 4];
-  assign current_instruction[5] = ram[instruction_address_start + 5];
-  assign current_instruction[6] = ram[instruction_address_start + 6];
-  assign current_instruction[7] = ram[instruction_address_start + 7];
+  assign current_instruction[0] = ram[instruction_address_start[6:0]];
+  assign current_instruction[1] = ram[instruction_address_start[6:0] + 1];
+  assign current_instruction[2] = ram[instruction_address_start[6:0] + 2];
+  assign current_instruction[3] = ram[instruction_address_start[6:0] + 3];
+  assign current_instruction[4] = ram[instruction_address_start[6:0] + 4];
+  assign current_instruction[5] = ram[instruction_address_start[6:0] + 5];
+  assign current_instruction[6] = ram[instruction_address_start[6:0] + 6];
+  assign current_instruction[7] = ram[instruction_address_start[6:0] + 7];
 
   wire NOP = (!current_instruction[7]) & (!current_instruction[6]) & (!current_instruction[5]) & (!current_instruction[4]);
   wire LDA1 = (!current_instruction[7]) & (!current_instruction[6]) & (!current_instruction[5]) & current_instruction[4];
@@ -92,11 +94,11 @@ module tt_um_8_bit_cpu_seyon_satheesh (
   ////////////////  RESET  ////////////////
 
   // d_latch_8_bit dl8b_1(v, e, r);
-  d_latch_8_bit reset_a(0, reset, register_a);
-  d_latch_8_bit reset_b(0, reset, register_b);
-  d_latch_8_bit reset_c(0, reset, register_c);
-  d_latch_128_bit reset_ram(0, reset, ram);
-  d_latch_4_bit reset_instruction_address(0, reset, instruction_address);
+  d_latch_8_bit reset_a(8'b00000000, reset, register_a[7:0]);
+  d_latch_8_bit reset_b(8'b00000000, reset, register_b[7:0]);
+  d_latch_8_bit reset_c(8'b00000000, reset, register_c[7:0]);
+  d_latch_128_bit reset_ram(128'b00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000, reset, ram[127:0]);
+  d_latch_4_bit reset_instruction_address(4'b0000, reset, instruction_address[3:0]);
 
   ////////////////  EXTERNAL RAM LOADING  ////////////////
 
