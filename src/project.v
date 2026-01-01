@@ -40,7 +40,8 @@ module tt_um_8_bit_cpu_seyon_satheesh (
 
   wire instruction_address[3:0];
 
-  wire current_instruction[7:0] = [(instruction_address << 3) - 8:(instruction_address << 3)];
+  // wire current_instruction[7:0] = [(instruction_address << 3) - 8:(instruction_address << 3)];
+  wire current_instruction[7:0] = [(instruction_address << 3) +: 8];
 
   wire NOP = (!current_instruction[7]) & (!current_instruction[6]) & (!current_instruction[5]) & (!current_instruction[4]);
   wire LDA1 = (!current_instruction[7]) & (!current_instruction[6]) & (!current_instruction[5]) & current_instruction[4];
