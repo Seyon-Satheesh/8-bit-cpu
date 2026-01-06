@@ -27,7 +27,7 @@ module tt_um_8_bit_cpu_seyon_satheesh (
 
   //////////////////////////////////////
 
-  assign uio_oe = 0; // Always IO as input
+  assign uio_oe = 8b'0; // Always IO as input
 
 
   ////////////////  KEY INTERNAL VALUES  ////////////////
@@ -40,8 +40,8 @@ module tt_um_8_bit_cpu_seyon_satheesh (
 
   wire [3:0] instruction_address;
 
-  // wire [7:0] current_instruction = ram[(instruction_address * 8) +: 8];
-  wire [7:0] current_instruction = ram[(instruction_address << 3) +: 8];
+  wire [7:0] current_instruction = ram[(instruction_address * 8) +: 8];
+  // wire [7:0] current_instruction = ram[(instruction_address << 3) +: 8];
 
   // wire current_instruction[7:0] = [(instruction_address << 3) - 8:(instruction_address << 3)];
   // wire instruction_address_start = instruction_address << 3;
@@ -70,7 +70,7 @@ module tt_um_8_bit_cpu_seyon_satheesh (
   // assign current_instruction[6] = ram[instruction_address_start[6:0] + 6];
   // assign current_instruction[7] = ram[instruction_address_start[6:0] + 7];
 
-  wire NOP = (!current_instruction[7]) & (!current_instruction[6]) & (!current_instruction[5]) & (!current_instruction[4]);
+  // wire NOP = (!current_instruction[7]) & (!current_instruction[6]) & (!current_instruction[5]) & (!current_instruction[4]);
   wire LDA1 = (!current_instruction[7]) & (!current_instruction[6]) & (!current_instruction[5]) & current_instruction[4];
   wire LDA2 = (!current_instruction[7]) & (!current_instruction[6]) & current_instruction[5] & (!current_instruction[4]);
   wire LDB1 = (!current_instruction[7]) & (!current_instruction[6]) & current_instruction[5] & current_instruction[4];
@@ -98,11 +98,11 @@ module tt_um_8_bit_cpu_seyon_satheesh (
 
   // d_latch_8_bit dl8b_1(v, e, r);
 
-  d_latch_8_bit reset_a(8'b00000000, reset, register_a[7:0]);
-  d_latch_8_bit reset_b(8'b00000000, reset, register_b[7:0]);
-  d_latch_8_bit reset_c(8'b00000000, reset, register_c[7:0]);
-  d_latch_128_bit reset_ram(128'b00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000, reset, ram[127:0]);
-  d_latch_4_bit reset_instruction_address(4'b0000, reset, instruction_address[3:0]);
+  // d_latch_8_bit reset_a(8'b00000000, reset, register_a[7:0]);
+  // d_latch_8_bit reset_b(8'b00000000, reset, register_b[7:0]);
+  // d_latch_8_bit reset_c(8'b00000000, reset, register_c[7:0]);
+  // d_latch_128_bit reset_ram(128'b00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000, reset, ram[127:0]);
+  // d_latch_4_bit reset_instruction_address(4'b0000, reset, instruction_address[3:0]);
 
   ////////////////  EXTERNAL RAM LOADING  ////////////////
 
@@ -123,26 +123,30 @@ module tt_um_8_bit_cpu_seyon_satheesh (
   wire load_ram_address_15 = write_external_data_to_ram & uio_out[3] & uio_out[2] & uio_out[1] & !(uio_out[0]);
   wire load_ram_address_16 = write_external_data_to_ram & uio_out[3] & uio_out[2] & uio_out[1] & uio_out[0];
 
-  d_latch_8_bit external_ram_loader_1(ui_in[7:0], load_ram_address_1, ram[7:0]);
-  d_latch_8_bit external_ram_loader_2(ui_in[7:0], load_ram_address_2, ram[15:8]);
-  d_latch_8_bit external_ram_loader_3(ui_in[7:0], load_ram_address_3, ram[23:16]);
-  d_latch_8_bit external_ram_loader_4(ui_in[7:0], load_ram_address_4, ram[31:24]);
-  d_latch_8_bit external_ram_loader_5(ui_in[7:0], load_ram_address_5, ram[39:32]);
-  d_latch_8_bit external_ram_loader_6(ui_in[7:0], load_ram_address_6, ram[47:40]);
-  d_latch_8_bit external_ram_loader_7(ui_in[7:0], load_ram_address_7, ram[55:48]);
-  d_latch_8_bit external_ram_loader_8(ui_in[7:0], load_ram_address_8, ram[63:56]);
-  d_latch_8_bit external_ram_loader_9(ui_in[7:0], load_ram_address_9, ram[71:64]);
-  d_latch_8_bit external_ram_loader_10(ui_in[7:0], load_ram_address_10, ram[79:72]);
-  d_latch_8_bit external_ram_loader_11(ui_in[7:0], load_ram_address_11, ram[87:80]);
-  d_latch_8_bit external_ram_loader_12(ui_in[7:0], load_ram_address_12, ram[95:88]);
-  d_latch_8_bit external_ram_loader_13(ui_in[7:0], load_ram_address_13, ram[103:96]);
-  d_latch_8_bit external_ram_loader_14(ui_in[7:0], load_ram_address_14, ram[111:104]);
-  d_latch_8_bit external_ram_loader_15(ui_in[7:0], load_ram_address_15, ram[119:112]);
-  d_latch_8_bit external_ram_loader_16(ui_in[7:0], load_ram_address_16, ram[127:120]);
+  wire [127:0] ram_loaded;
+
+  d_latch_8_bit external_ram_loader_1(ui_in[7:0], load_ram_address_1, ram_loaded[7:0]);
+  d_latch_8_bit external_ram_loader_2(ui_in[7:0], load_ram_address_2, ram_loaded[15:8]);
+  d_latch_8_bit external_ram_loader_3(ui_in[7:0], load_ram_address_3, ram_loaded[23:16]);
+  d_latch_8_bit external_ram_loader_4(ui_in[7:0], load_ram_address_4, ram_loaded[31:24]);
+  d_latch_8_bit external_ram_loader_5(ui_in[7:0], load_ram_address_5, ram_loaded[39:32]);
+  d_latch_8_bit external_ram_loader_6(ui_in[7:0], load_ram_address_6, ram_loaded[47:40]);
+  d_latch_8_bit external_ram_loader_7(ui_in[7:0], load_ram_address_7, ram_loaded[55:48]);
+  d_latch_8_bit external_ram_loader_8(ui_in[7:0], load_ram_address_8, ram_loaded[63:56]);
+  d_latch_8_bit external_ram_loader_9(ui_in[7:0], load_ram_address_9, ram_loaded[71:64]);
+  d_latch_8_bit external_ram_loader_10(ui_in[7:0], load_ram_address_10, ram_loaded[79:72]);
+  d_latch_8_bit external_ram_loader_11(ui_in[7:0], load_ram_address_11, ram_loaded[87:80]);
+  d_latch_8_bit external_ram_loader_12(ui_in[7:0], load_ram_address_12, ram_loaded[95:88]);
+  d_latch_8_bit external_ram_loader_13(ui_in[7:0], load_ram_address_13, ram_loaded[103:96]);
+  d_latch_8_bit external_ram_loader_14(ui_in[7:0], load_ram_address_14, ram_loaded[111:104]);
+  d_latch_8_bit external_ram_loader_15(ui_in[7:0], load_ram_address_15, ram_loaded[119:112]);
+  d_latch_8_bit external_ram_loader_16(ui_in[7:0], load_ram_address_16, ram_loaded[127:120]);
 
   ////////////////  PROGRAM COUNTER  ////////////////
 
-  binary_counter_4_bit bc4b(should_increment_instruction_address, instruction_address);
+  wire [3:0] program_counter;
+
+  binary_counter_4_bit bc4b(should_increment_instruction_address, program_counter);
 
   ////////////////  ALU  ////////////////
 
@@ -154,13 +158,15 @@ module tt_um_8_bit_cpu_seyon_satheesh (
   wire should_minus = SUB & on;
   wire should_multiply = MUL & on;
 
+  wire [7:0] reg_c_alu;
+
   adder_8_bit summer(register_a, register_b, sum);
   subtracter_8_bit minuser(register_a, register_b, difference);
   multiplier_8_bit multiplier(register_a, register_b, product);
 
-  d_latch_8_bit load_sum(sum, should_sum, register_c);
-  d_latch_8_bit load_difference(difference, should_minus, register_c);
-  d_latch_8_bit load_product(product, should_multiply, register_c);
+  d_latch_8_bit load_sum(sum, should_sum, reg_c_alu);
+  d_latch_8_bit load_difference(difference, should_minus, reg_c_alu);
+  d_latch_8_bit load_product(product, should_multiply, reg_c_alu);
 
   ////////////////  REGISTER VALUE LOADER  ////////////////
 
@@ -171,12 +177,16 @@ module tt_um_8_bit_cpu_seyon_satheesh (
   wire should_load_c_1 = LDC1 & on;
   wire should_load_c_2 = LDC2 & on;
 
-  d_latch_4_bit reg_a_load_1(current_instruction[3:0], should_load_a_1, register_a[3:0]);
-  d_latch_4_bit reg_a_load_2(current_instruction[3:0], should_load_a_2, register_a[7:4]);
-  d_latch_4_bit reg_b_load_1(current_instruction[3:0], should_load_b_1, register_b[3:0]);
-  d_latch_4_bit reg_b_load_2(current_instruction[3:0], should_load_b_2, register_b[7:4]);
-  d_latch_4_bit reg_c_load_1(current_instruction[3:0], should_load_c_1, register_c[3:0]);
-  d_latch_4_bit reg_c_load_2(current_instruction[3:0], should_load_c_2, register_c[7:4]);
+  wire [7:0] reg_a_loader;
+  wire [7:0] reg_b_loader;
+  wire [7:0] reg_c_loader;
+
+  d_latch_4_bit reg_a_load_1(current_instruction[3:0], should_load_a_1, reg_a_loader[3:0]);
+  d_latch_4_bit reg_a_load_2(current_instruction[3:0], should_load_a_2, reg_a_loader[7:4]);
+  d_latch_4_bit reg_b_load_1(current_instruction[3:0], should_load_b_1, reg_b_loader[3:0]);
+  d_latch_4_bit reg_b_load_2(current_instruction[3:0], should_load_b_2, reg_b_loader[7:4]);
+  d_latch_4_bit reg_c_load_1(current_instruction[3:0], should_load_c_1, reg_c_loader[3:0]);
+  d_latch_4_bit reg_c_load_2(current_instruction[3:0], should_load_c_2, reg_c_loader[7:4]);
 
   ////////////////  INPUT VALUE INTO REGISTER  ////////////////
 
@@ -184,9 +194,13 @@ module tt_um_8_bit_cpu_seyon_satheesh (
   wire should_input_reg_b = IN & on & !(current_instruction[3]) & !(current_instruction[2]) & !(current_instruction[1]) & current_instruction[0];
   wire should_input_reg_c = IN & on & !(current_instruction[3]) & !(current_instruction[2]) & current_instruction[1] & !(current_instruction[0]);
 
-  d_latch_8_bit reg_a_input(ui_in, should_input_reg_a, register_a);
-  d_latch_8_bit reg_b_input(ui_in, should_input_reg_b, register_b);
-  d_latch_8_bit reg_c_input(ui_in, should_input_reg_c, register_c);
+  wire [7:0] reg_a_input;
+  wire [7:0] reg_b_input;
+  wire [7:0] reg_c_input;
+
+  d_latch_8_bit reg_a_input(ui_in, should_input_reg_a, reg_a_input);
+  d_latch_8_bit reg_b_input(ui_in, should_input_reg_b, reg_b_input);
+  d_latch_8_bit reg_c_input(ui_in, should_input_reg_c, reg_c_input);
 
   ////////////////  OUTPUT REGISTER VALUE  ////////////////
 
@@ -197,6 +211,116 @@ module tt_um_8_bit_cpu_seyon_satheesh (
   d_latch_8_bit reg_a_output(register_a, should_output_reg_a, uo_out);
   d_latch_8_bit reg_b_output(register_a, should_output_reg_b, uo_out);
   d_latch_8_bit reg_c_output(register_a, should_output_reg_c, uo_out);
+
+  ////////////////  REGISTERS  ////////////////
+
+  wire [3:0] reg_a_value_1 = (reset) ? 4'b0000:
+                             (should_load_a_1) ? reg_a_loader[3:0]:
+                             (should_input_reg_a) ? reg_a_input[3:0]:
+                             4'b0000;
+  wire [3:0] reg_a_value_2 = (reset) ? 4'b0000:
+                             (should_load_a_2) ? reg_a_loader[7:4]:
+                             (should_input_reg_a) ? reg_a_input[7:4]:
+                             4'b0000;
+  wire [3:0] reg_b_value_1 = (reset) ? 4'b0000:
+                             (should_load_b_1) ? reg_b_loader[3:0]:
+                             (should_input_reg_b) ? reg_b_input[3:0]:
+                             4'b0000;
+  wire [3:0] reg_b_value_2 = (reset) ? 4'b0000:
+                             (should_load_b_2) ? reg_b_loader[7:4]:
+                             (should_input_reg_b) ? reg_b_input[7:4]:
+                             4'b0000;
+  wire [3:0] reg_c_value_1 = (reset) ? 4'b0000:
+                             (should_load_c_1) ? reg_c_loader[3:0]:
+                             (should_input_reg_c) ? reg_c_input[3:0]:
+                             4'b0000;
+  wire [3:0] reg_c_value_2 = (reset) ? 4'b0000:
+                             (should_load_c_2) ? reg_c_loader[7:4]:
+                             (should_input_reg_c) ? reg_c_input[7:4]:
+                             4'b0000;
+
+  wire [7:0] reg_a_value;
+  assign reg_a_value[3:0] = reg_a_value_1;
+  assign reg_a_value[7:4] = reg_a_value_2;
+
+  wire [7:0] reg_b_value;
+  assign reg_b_value[3:0] = reg_b_value_1;
+  assign reg_b_value[7:4] = reg_b_value_2;
+
+  wire [7:0] reg_c_value;
+  assign reg_c_value[3:0] = reg_c_value_1;
+  assign reg_c_value[7:4] = reg_c_value_2;
+
+  wire should_update_reg_a = reset | should_load_a_1 | should_load_a_2 | should_input_reg_a;
+  wire should_update_reg_b = reset | should_load_b_1 | should_load_b_2 | should_input_reg_b;
+  wire should_update_reg_c = reset | should_load_c_1 | should_load_c_2 | should_input_reg_c;
+
+  d_latch_8_bit final_register_a(reg_a_value, should_update_reg_a, register_a);
+  d_latch_8_bit final_register_b(reg_b_value, should_update_reg_b, register_b);
+  d_latch_8_bit final_register_c(reg_c_value, should_update_reg_c, register_c);
+
+  //////
+
+  wire [127:0] ram_value;
+
+  wire ram_value[7:0] = (reset) ? 8'b00000000:
+                        (load_ram_address_1) ? ram_loaded[7:0]:
+                        8'b00000000;
+  wire ram_value[15:8] = (reset) ? 8'b00000000:
+                        (load_ram_address_2) ? ram_loaded[15:8]:
+                        8'b00000000;
+  wire ram_value[23:16] = (reset) ? 8'b00000000:
+                        (load_ram_address_3) ? ram_loaded[23:16]:
+                        8'b00000000;
+  wire ram_value[31:24] = (reset) ? 8'b00000000:
+                        (load_ram_address_4) ? ram_loaded[31:24]:
+                        8'b00000000;
+  wire ram_value[39:32] = (reset) ? 8'b00000000:
+                        (load_ram_address_5) ? ram_loaded[39:32]:
+                        8'b00000000;
+  wire ram_value[47:40] = (reset) ? 8'b00000000:
+                        (load_ram_address_6) ? ram_loaded[47:40]:
+                        8'b00000000;
+  wire ram_value[55:48] = (reset) ? 8'b00000000:
+                        (load_ram_address_7) ? ram_loaded[55:48]:
+                        8'b00000000;
+  wire ram_value[63:56] = (reset) ? 8'b00000000:
+                        (load_ram_address_8) ? ram_loaded[63:56]:
+                        8'b00000000;
+  wire ram_value[71:64] = (reset) ? 8'b00000000:
+                        (load_ram_address_9) ? ram_loaded[71:64]:
+                        8'b00000000;
+  wire ram_value[79:72] = (reset) ? 8'b00000000:
+                        (load_ram_address_10) ? ram_loaded[79:72]:
+                        8'b00000000;
+  wire ram_value[87:80] = (reset) ? 8'b00000000:
+                        (load_ram_address_11) ? ram_loaded[87:80]:
+                        8'b00000000;
+  wire ram_value[95:88] = (reset) ? 8'b00000000:
+                        (load_ram_address_12) ? ram_loaded[95:88]:
+                        8'b00000000;
+  wire ram_value[103:96] = (reset) ? 8'b00000000:
+                        (load_ram_address_13) ? ram_loaded[103:96]:
+                        8'b00000000;
+  wire ram_value[111:104] = (reset) ? 8'b00000000:
+                        (load_ram_address_14) ? ram_loaded[111:104]:
+                        8'b00000000;
+  wire ram_value[119:112] = (reset) ? 8'b00000000:
+                        (load_ram_address_15) ? ram_loaded[119:112]:
+                        8'b00000000;
+  wire ram_value[127:120] = (reset) ? 8'b00000000:
+                        (load_ram_address_16) ? ram_loaded[127:120]:
+                        8'b00000000;
+
+  wire should_update_ram = reset | load_ram_address_1 | load_ram_address_2 | load_ram_address_3 | load_ram_address_4 | load_ram_address_5 | load_ram_address_6 | load_ram_address_7 | load_ram_address_8 | load_ram_address_9 | load_ram_address_10 | load_ram_address_11 | load_ram_address_12 | load_ram_address_13 | load_ram_address_14 | load_ram_address_15 | load_ram_address_16;
+
+  d_latch_128_bit final_ram(ram_value, should_update_ram, ram);
+
+  ////////////
+
+  assign instruction_address[3:0] = (reset) ? 4'b0000:
+                                    (should_increment_instruction_address) ? program_counter:
+                                    4'b0000;
 
 endmodule
 
