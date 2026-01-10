@@ -198,9 +198,9 @@ module tt_um_8_bit_cpu_seyon_satheesh (
   wire [7:0] reg_b_input;
   wire [7:0] reg_c_input;
 
-  d_latch_8_bit reg_a_input(ui_in, should_input_reg_a, reg_a_input);
-  d_latch_8_bit reg_b_input(ui_in, should_input_reg_b, reg_b_input);
-  d_latch_8_bit reg_c_input(ui_in, should_input_reg_c, reg_c_input);
+  d_latch_8_bit reg_a_inputer(ui_in, should_input_reg_a, reg_a_input);
+  d_latch_8_bit reg_b_inputer(ui_in, should_input_reg_b, reg_b_input);
+  d_latch_8_bit reg_c_inputer(ui_in, should_input_reg_c, reg_c_input);
 
   ////////////////  OUTPUT REGISTER VALUE  ////////////////
 
