@@ -263,52 +263,52 @@ module tt_um_8_bit_cpu_seyon_satheesh (
 
   wire [127:0] ram_value;
 
-  wire ram_value[7:0] = (reset) ? 8'b00000000:
+  assign ram_value[7:0] = (reset) ? 8'b00000000:
                         (load_ram_address_1) ? ram_loaded[7:0]:
                         8'b00000000;
-  wire ram_value[15:8] = (reset) ? 8'b00000000:
+  assign ram_value[15:8] = (reset) ? 8'b00000000:
                         (load_ram_address_2) ? ram_loaded[15:8]:
                         8'b00000000;
-  wire ram_value[23:16] = (reset) ? 8'b00000000:
+  assign ram_value[23:16] = (reset) ? 8'b00000000:
                         (load_ram_address_3) ? ram_loaded[23:16]:
                         8'b00000000;
-  wire ram_value[31:24] = (reset) ? 8'b00000000:
+  assign ram_value[31:24] = (reset) ? 8'b00000000:
                         (load_ram_address_4) ? ram_loaded[31:24]:
                         8'b00000000;
-  wire ram_value[39:32] = (reset) ? 8'b00000000:
+  assign ram_value[39:32] = (reset) ? 8'b00000000:
                         (load_ram_address_5) ? ram_loaded[39:32]:
                         8'b00000000;
-  wire ram_value[47:40] = (reset) ? 8'b00000000:
+  assign ram_value[47:40] = (reset) ? 8'b00000000:
                         (load_ram_address_6) ? ram_loaded[47:40]:
                         8'b00000000;
-  wire ram_value[55:48] = (reset) ? 8'b00000000:
+  assign ram_value[55:48] = (reset) ? 8'b00000000:
                         (load_ram_address_7) ? ram_loaded[55:48]:
                         8'b00000000;
-  wire ram_value[63:56] = (reset) ? 8'b00000000:
+  assign ram_value[63:56] = (reset) ? 8'b00000000:
                         (load_ram_address_8) ? ram_loaded[63:56]:
                         8'b00000000;
-  wire ram_value[71:64] = (reset) ? 8'b00000000:
+  assign ram_value[71:64] = (reset) ? 8'b00000000:
                         (load_ram_address_9) ? ram_loaded[71:64]:
                         8'b00000000;
-  wire ram_value[79:72] = (reset) ? 8'b00000000:
+  assign ram_value[79:72] = (reset) ? 8'b00000000:
                         (load_ram_address_10) ? ram_loaded[79:72]:
                         8'b00000000;
-  wire ram_value[87:80] = (reset) ? 8'b00000000:
+  assign ram_value[87:80] = (reset) ? 8'b00000000:
                         (load_ram_address_11) ? ram_loaded[87:80]:
                         8'b00000000;
-  wire ram_value[95:88] = (reset) ? 8'b00000000:
+  assign ram_value[95:88] = (reset) ? 8'b00000000:
                         (load_ram_address_12) ? ram_loaded[95:88]:
                         8'b00000000;
-  wire ram_value[103:96] = (reset) ? 8'b00000000:
+  assign ram_value[103:96] = (reset) ? 8'b00000000:
                         (load_ram_address_13) ? ram_loaded[103:96]:
                         8'b00000000;
-  wire ram_value[111:104] = (reset) ? 8'b00000000:
+  assign ram_value[111:104] = (reset) ? 8'b00000000:
                         (load_ram_address_14) ? ram_loaded[111:104]:
                         8'b00000000;
-  wire ram_value[119:112] = (reset) ? 8'b00000000:
+  assign ram_value[119:112] = (reset) ? 8'b00000000:
                         (load_ram_address_15) ? ram_loaded[119:112]:
                         8'b00000000;
-  wire ram_value[127:120] = (reset) ? 8'b00000000:
+  assign ram_value[127:120] = (reset) ? 8'b00000000:
                         (load_ram_address_16) ? ram_loaded[127:120]:
                         8'b00000000;
 
