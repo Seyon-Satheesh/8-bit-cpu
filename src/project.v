@@ -27,7 +27,7 @@ module tt_um_8_bit_cpu_seyon_satheesh (
 
   //////////////////////////////////////
 
-  assign uio_oe = 8b'0; // Always IO as input
+  assign uio_oe = 8'b00000000; // Always IO as input
 
 
   ////////////////  KEY INTERNAL VALUES  ////////////////
