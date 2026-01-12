@@ -4,6 +4,7 @@
  */
 
   /*verilator lint_off UNUSEDSIGNAL*/
+  /* verilator lint_off UNOPTFLAT */
 
 `default_nettype none
 
@@ -732,3 +733,4 @@ module multiplier_8_bit (
 endmodule
 
 /*verilator lint_on UNUSEDSIGNAL*/
+/*verilator lint_on UNOPTFLAT*/
