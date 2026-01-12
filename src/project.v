@@ -397,7 +397,7 @@ endmodule
 module d_latch_1_bit (
     input wire value,
     input wire enable,
-    output wire result
+    output reg result
 );
 
   // OLD
@@ -457,7 +457,7 @@ module j_k_master_slave_flip_flop (
     input wire j,
     input wire k,
     input wire clock,
-    output wire result
+    output reg result
 );
 
   // OLD
@@ -485,9 +485,9 @@ module j_k_master_slave_flip_flop (
   // NEW
 
   always @ (*) begin
-    if (j) begin
+    if (clock && j) begin
       result <= 1'b1;
-    end else if (k) begin
+    end else if (clock && k) begin
       result <= 1'b0;
     end else begin
       result <= result;
