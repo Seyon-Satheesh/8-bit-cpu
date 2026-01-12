@@ -160,13 +160,17 @@ module tt_um_8_bit_cpu_seyon_satheesh (
 
   wire [7:0] reg_c_alu;
 
+  wire [7:0] reg_c_alu_sum;
+  wire [7:0] reg_c_alu_difference;
+  wire [7:0] reg_c_alu_product;
+
   adder_8_bit summer(register_a, register_b, sum);
   subtracter_8_bit minuser(register_a, register_b, difference);
   multiplier_8_bit multiplier(register_a, register_b, product);
 
-  d_latch_8_bit load_sum(sum, should_sum, reg_c_alu);
-  d_latch_8_bit load_difference(difference, should_minus, reg_c_alu);
-  d_latch_8_bit load_product(product, should_multiply, reg_c_alu);
+  d_latch_8_bit load_sum(sum, should_sum, reg_c_alu_sum);
+  d_latch_8_bit load_difference(difference, should_minus, reg_c_alu_difference);
+  d_latch_8_bit load_product(product, should_multiply, reg_c_alu_product);
 
   ////////////////  REGISTER VALUE LOADER  ////////////////
 
@@ -214,6 +218,12 @@ module tt_um_8_bit_cpu_seyon_satheesh (
 
   ////////////////  REGISTERS  ////////////////
 
+  assign reg_c_alu[7:0] = (reset) ? 8'b00000000:
+                          (should_sum) ? reg_c_alu_sum:
+                          (should_minus) ? reg_c_alu_difference:
+                          (should_multiply) ? reg_c_alu_product:
+                          8'b00000000;
+
   wire [3:0] reg_a_value_1 = (reset) ? 4'b0000:
                              (should_load_a_1) ? reg_a_loader[3:0]:
                              (should_input_reg_a) ? reg_a_input[3:0]:
@@ -233,10 +243,12 @@ module tt_um_8_bit_cpu_seyon_satheesh (
   wire [3:0] reg_c_value_1 = (reset) ? 4'b0000:
                              (should_load_c_1) ? reg_c_loader[3:0]:
                              (should_input_reg_c) ? reg_c_input[3:0]:
+                             (should_sum || should_minus || should_multiply) ? reg_c_alu[3:0]:
                              4'b0000;
   wire [3:0] reg_c_value_2 = (reset) ? 4'b0000:
                              (should_load_c_2) ? reg_c_loader[7:4]:
                              (should_input_reg_c) ? reg_c_input[7:4]:
+                             (should_sum || should_minus || should_multiply) ? reg_c_alu[7:4]:
                              4'b0000;
 
   wire [7:0] reg_a_value;
