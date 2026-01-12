@@ -215,9 +215,15 @@ module tt_um_8_bit_cpu_seyon_satheesh (
   wire should_output_reg_b = OUT & on & !(current_instruction[3]) & !(current_instruction[2]) & !(current_instruction[1]) & current_instruction[0];
   wire should_output_reg_c = OUT & on & !(current_instruction[3]) & !(current_instruction[2]) & current_instruction[1] & !(current_instruction[0]);
 
-  d_latch_8_bit reg_a_output(register_a, should_output_reg_a, uo_out);
-  d_latch_8_bit reg_b_output(register_a, should_output_reg_b, uo_out);
-  d_latch_8_bit reg_c_output(register_a, should_output_reg_c, uo_out);
+  // d_latch_8_bit reg_a_output(register_a, should_output_reg_a, uo_out);
+  // d_latch_8_bit reg_b_output(register_b, should_output_reg_b, uo_out);
+  // d_latch_8_bit reg_c_output(register_c, should_output_reg_c, uo_out);
+
+  assign uo_out = (reset) ? 8'b00000000:
+                  (should_output_reg_a) ? register_a:
+                  (should_output_reg_b) ? register_b:
+                  (should_output_reg_c) ? register_c:
+                  8'b00000000;
 
   ////////////////  REGISTERS  ////////////////
 
