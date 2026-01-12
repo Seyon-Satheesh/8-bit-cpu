@@ -428,26 +428,30 @@ module d_latch_1_bit (
   wire top_1, top_2;
   wire bottom_1, bottom_2;
 
-  wire buffer_top, buffer_bottom; // NEW
+  // wire buffer_top, buffer_bottom; // NEW
 
-  and and_1(top_1, not_value, enable);
-  and and_2(bottom_1, value, enable);
-
-  nor nor_1(buffer_top, top_1, bottom_2);
-  nor nor_2(buffer_bottom, bottom_1, top_2);
-
-  assign top_2 = buffer_top;
-  assign bottom_2 = buffer_bottom;
-
-  assign result = top_2;
+  /////////////////
 
   // and and_1(top_1, not_value, enable);
   // and and_2(bottom_1, value, enable);
   //
-  // nor nor_1(top_2, top_1, bottom_2);
-  // nor nor_2(bottom_2, bottom_1, top_2);
+  // nor nor_1(buffer_top, top_1, bottom_2);
+  // nor nor_2(buffer_bottom, bottom_1, top_2);
+  //
+  // assign top_2 = buffer_top;
+  // assign bottom_2 = buffer_bottom;
   //
   // assign result = top_2;
+
+  ////////////
+
+  and and_1(top_1, not_value, enable);
+  and and_2(bottom_1, value, enable);
+
+  nor nor_1(top_2, top_1, bottom_2);
+  nor nor_2(bottom_2, bottom_1, top_2);
+
+  assign result = top_2;
 
   // NEW
 
