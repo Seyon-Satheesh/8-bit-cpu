@@ -419,9 +419,9 @@ module d_latch_1_bit (
 
   always @ (*) begin
     if (enable) begin
-      result <= value;
+      result = value;
     end else begin
-      result <= result;
+      result = result;
     end
   end
 
@@ -486,11 +486,11 @@ module j_k_master_slave_flip_flop (
 
   always @ (*) begin
     if (clock && j) begin
-      result <= 1'b1;
+      result = 1'b1;
     end else if (clock && k) begin
-      result <= 1'b0;
+      result = 1'b0;
     end else begin
-      result <= result;
+      result = result;
     end
   end
 
