@@ -85,10 +85,10 @@ module tt_um_8_bit_cpu_seyon_satheesh (
 
   ////////////////  EXTERNAL DATA WIRES  ////////////////
 
-  wire on = uio_out[7]; // 1 - ON, 0 - OFF
-  wire reset = !uio_out[6]; // 1 - RESET, 0 - DON'T RESET
+  wire on = uio_in[7]; // 1 - ON, 0 - OFF
+  wire reset = !uio_in[6]; // 1 - RESET, 0 - DON'T RESET
 
-  wire write_external_data_to_ram = (!uio_out[5]) & uio_out[4]; // uio_out[7] is ON/OFF, uio_out[6] is RESET/DON'T RESET, uio_out[3:0] is address
+  wire write_external_data_to_ram = (!uio_in[5]) & uio_in[4]; // uio_in[7] is ON/OFF, uio_in[6] is RESET/DON'T RESET, uio_out[3:0] is address
 
   ////////////////  INTERNAL DATA WIRES  ////////////////
 
@@ -106,22 +106,22 @@ module tt_um_8_bit_cpu_seyon_satheesh (
 
   ////////////////  EXTERNAL RAM LOADING  ////////////////
 
-  wire load_ram_address_1 = write_external_data_to_ram & !(uio_out[3]) & !(uio_out[2]) & !(uio_out[1]) & !(uio_out[0]);
-  wire load_ram_address_2 = write_external_data_to_ram & !(uio_out[3]) & !(uio_out[2]) & !(uio_out[1]) & uio_out[0];
-  wire load_ram_address_3 = write_external_data_to_ram & !(uio_out[3]) & !(uio_out[2]) & uio_out[1] & !(uio_out[0]);
-  wire load_ram_address_4 = write_external_data_to_ram & !(uio_out[3]) & !(uio_out[2]) & uio_out[1] & uio_out[0];
-  wire load_ram_address_5 = write_external_data_to_ram & !(uio_out[3]) & uio_out[2] & !(uio_out[1]) & !(uio_out[0]);
-  wire load_ram_address_6 = write_external_data_to_ram & !(uio_out[3]) & uio_out[2] & !(uio_out[1]) & uio_out[0];
-  wire load_ram_address_7 = write_external_data_to_ram & !(uio_out[3]) & uio_out[2] & uio_out[1] & !(uio_out[0]);
-  wire load_ram_address_8 = write_external_data_to_ram & !(uio_out[3]) & uio_out[2] & uio_out[1] & uio_out[0];
-  wire load_ram_address_9 = write_external_data_to_ram & uio_out[3] & !(uio_out[2]) & !(uio_out[1]) & !(uio_out[0]);
-  wire load_ram_address_10 = write_external_data_to_ram & uio_out[3] & !(uio_out[2]) & !(uio_out[1]) & uio_out[0];
-  wire load_ram_address_11 = write_external_data_to_ram & uio_out[3] & !(uio_out[2]) & uio_out[1] & !(uio_out[0]);
-  wire load_ram_address_12 = write_external_data_to_ram & uio_out[3] & !(uio_out[2]) & uio_out[1] & uio_out[0];
-  wire load_ram_address_13 = write_external_data_to_ram & uio_out[3] & uio_out[2] & !(uio_out[1]) & !(uio_out[0]);
-  wire load_ram_address_14 = write_external_data_to_ram & uio_out[3] & uio_out[2] & !(uio_out[1]) & uio_out[0];
-  wire load_ram_address_15 = write_external_data_to_ram & uio_out[3] & uio_out[2] & uio_out[1] & !(uio_out[0]);
-  wire load_ram_address_16 = write_external_data_to_ram & uio_out[3] & uio_out[2] & uio_out[1] & uio_out[0];
+  wire load_ram_address_1 = write_external_data_to_ram & !(uio_in[3]) & !(uio_in[2]) & !(uio_in[1]) & !(uio_in[0]);
+  wire load_ram_address_2 = write_external_data_to_ram & !(uio_in[3]) & !(uio_in[2]) & !(uio_in[1]) & uio_in[0];
+  wire load_ram_address_3 = write_external_data_to_ram & !(uio_in[3]) & !(uio_in[2]) & uio_in[1] & !(uio_in[0]);
+  wire load_ram_address_4 = write_external_data_to_ram & !(uio_in[3]) & !(uio_in[2]) & uio_in[1] & uio_in[0];
+  wire load_ram_address_5 = write_external_data_to_ram & !(uio_in[3]) & uio_in[2] & !(uio_in[1]) & !(uio_in[0]);
+  wire load_ram_address_6 = write_external_data_to_ram & !(uio_in[3]) & uio_in[2] & !(uio_in[1]) & uio_in[0];
+  wire load_ram_address_7 = write_external_data_to_ram & !(uio_in[3]) & uio_in[2] & uio_in[1] & !(uio_in[0]);
+  wire load_ram_address_8 = write_external_data_to_ram & !(uio_in[3]) & uio_in[2] & uio_in[1] & uio_in[0];
+  wire load_ram_address_9 = write_external_data_to_ram & uio_in[3] & !(uio_in[2]) & !(uio_in[1]) & !(uio_in[0]);
+  wire load_ram_address_10 = write_external_data_to_ram & uio_in[3] & !(uio_in[2]) & !(uio_in[1]) & uio_in[0];
+  wire load_ram_address_11 = write_external_data_to_ram & uio_in[3] & !(uio_in[2]) & uio_in[1] & !(uio_in[0]);
+  wire load_ram_address_12 = write_external_data_to_ram & uio_in[3] & !(uio_in[2]) & uio_in[1] & uio_in[0];
+  wire load_ram_address_13 = write_external_data_to_ram & uio_in[3] & uio_in[2] & !(uio_in[1]) & !(uio_in[0]);
+  wire load_ram_address_14 = write_external_data_to_ram & uio_in[3] & uio_in[2] & !(uio_in[1]) & uio_in[0];
+  wire load_ram_address_15 = write_external_data_to_ram & uio_in[3] & uio_in[2] & uio_in[1] & !(uio_in[0]);
+  wire load_ram_address_16 = write_external_data_to_ram & uio_in[3] & uio_in[2] & uio_in[1] & uio_in[0];
 
   wire [127:0] ram_loaded;
 
