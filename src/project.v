@@ -445,13 +445,21 @@ module d_latch_1_bit (
 
   ////////////
 
-  and and_1(top_1, not_value, enable);
-  and and_2(bottom_1, value, enable);
+  // and and_1(top_1, not_value, enable);
+  // and and_2(bottom_1, value, enable);
+  //
+  // nor nor_1(top_2, top_1, bottom_2);
+  // nor nor_2(bottom_2, bottom_1, top_2);
+  //
+  // assign result = top_2;
 
-  nor nor_1(top_2, top_1, bottom_2);
-  nor nor_2(bottom_2, bottom_1, top_2);
+  /////////////
 
-  assign result = top_2;
+  always @ (*) begin
+    if (enable) begin
+      result = value;
+    end
+  end
 
   // NEW
 
@@ -500,25 +508,35 @@ module j_k_master_slave_flip_flop (
 
   // OLD
 
-  wire inverse_result;
+  // wire inverse_result;
+  //
+  // wire top_1, top_2, top_3, top_4, top_5;
+  // wire bottom_1, bottom_2, bottom_3, bottom_4, bottom_5;
+  //
+  // and and_top_1(top_1, j, inverse_result);
+  // and and_top_2(top_2, top_1, clock);
+  // nor nor_top_1(top_3, top_2, bottom_3);
+  // and and_top_3(top_4, top_3, clock);
+  // nor nor_top_2(top_5, top_4, bottom_5);
+  //
+  // and and_bottom_1(bottom_1, k, result);
+  // and and_bottom_2(bottom_2, bottom_1, clock);
+  // nor nor_bottom_1(bottom_3, bottom_2, top_3);
+  // and and_bottom_3(bottom_4, bottom_3, clock);
+  // nor nor_bottom_2(bottom_5, bottom_4, top_5);
+  //
+  // assign result = top_5;
+  // assign inverse_result = bottom_5;
 
-  wire top_1, top_2, top_3, top_4, top_5;
-  wire bottom_1, bottom_2, bottom_3, bottom_4, bottom_5;
+  ///////////////////
 
-  and and_top_1(top_1, j, inverse_result);
-  and and_top_2(top_2, top_1, clock);
-  nor nor_top_1(top_3, top_2, bottom_3);
-  and and_top_3(top_4, top_3, clock);
-  nor nor_top_2(top_5, top_4, bottom_5);
-
-  and and_bottom_1(bottom_1, k, result);
-  and and_bottom_2(bottom_2, bottom_1, clock);
-  nor nor_bottom_1(bottom_3, bottom_2, top_3);
-  and and_bottom_3(bottom_4, bottom_3, clock);
-  nor nor_bottom_2(bottom_5, bottom_4, top_5);
-
-  assign result = top_5;
-  assign inverse_result = bottom_5;
+  always @ (*) begin
+    if (clock && j) begin
+      result = 1'b1;
+    end else if (clock && k) begin
+      result = 1'b0;
+    end
+  end
 
   // NEW
 
