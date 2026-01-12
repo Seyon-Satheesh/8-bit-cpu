@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+  /*verilator lint_off*/
+
 `default_nettype none
 
 module tt_um_8_bit_cpu_seyon_satheesh (
@@ -728,3 +730,5 @@ module multiplier_8_bit (
   adder_8_bit a8b_7(sum_6, product_8, c);
 
 endmodule
+
+/*verilator lint_on*/
