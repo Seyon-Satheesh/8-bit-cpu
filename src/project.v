@@ -436,8 +436,8 @@ module d_latch_1_bit (
   nor nor_1(buffer_top, top_1, bottom_2);
   nor nor_2(buffer_bottom, bottom_1, top_2);
 
-  assign buffer_top = top_2;
-  assign buffer_bottom = bottom_2;
+  assign top_2 = buffer_top;
+  assign bottom_2 = buffer_bottom;
 
   assign result = top_2;
 
